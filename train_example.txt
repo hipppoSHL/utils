@@ -1,0 +1,5 @@
+before training, start visdom server!
+python -m visdom.server
+python train.py --dataroot ./datasets/CASIA_face --name halfface_percep_3 --model pix2pix --direction BtoA --no_flip --perceptual_weight 0.1
+
+python train.py --dataroot ./datasets/datasetname --name train_name --model pix2pix --direction BtoA --no_flip --input_nc 1 --output_nc 1 --lambda_L1 50

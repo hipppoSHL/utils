@@ -3,7 +3,7 @@ import cv2, os
 import statistics
 import random
 from skimage.restoration import denoise_nl_means, estimate_sigma
-import maskHalf_with_landmark
+# import maskHalf_with_landmark
 
 def justLoad(img_dir):
     img = cv2.imread(img_dir, cv2.IMREAD_GRAYSCALE)
@@ -38,6 +38,16 @@ def halfAlphaMask(img_dir, a_rate):
                 img[i, 64 + j] = img[i, 64 + j] - (255*a_rate)
             else:
                 img[i, 64 + j] = 0;
+    return img
+
+def halfAlphaMask_Gradient(img_dir, a_rate):
+    img = cv2.imread(img_dir, cv2.IMREAD_GRAYSCALE)
+    for i in range(128):
+        for j in range(64):
+            if (img[i, 64 + j] - (255 * a_rate)*j/20 > 0):
+                img[i, 64 + j] = img[i, 64 + j] - (255*a_rate)*j/20
+            else:
+                img[i, 64 + j] = 0
     return img
 
 # 가운데 그림자 완화하려고...
@@ -101,9 +111,9 @@ def maskAndSave(img_dir, save_dir_name):
                 # img = justLoad(image_path)
                 # img = halfBlack(image_path)
                 # img = halfCopy(image_path)
-                img = halfAlphaMask(image_path, 0.2)
-                # img = halfAlphaMaskGradient(image_path, 0.3)
-                img = NLfilter(img)
+                # img = halfAlphaMask(image_path, 0.3)
+                img = halfAlphaMask_Gradient(image_path, 0.25)
+                # img = NLfilter(img)
                 # img = pushRightHalfCopy(image_path, 4)
                 # img = halfRandom(image_path)
                 # img = maskHalf_with_landmark.maskHalf_landmark(image_path)
@@ -119,15 +129,16 @@ def testAndShow(img_dir):
             image_path = os.path.join(dirpath, f)
             print(image_path)
             try:
-                img = halfAlphaMask(image_path, 0.2)
+                img = halfAlphaMask_Gradient(image_path, 0.2)
                 img = NLfilter(img)
                 # img = blurCenter(img)
-                # cv2.imshow('img', img)
-                # cv2.waitKey(0)
-                # cv2.destroyAllWindows()
+                cv2.imshow('img', img)
+                cv2.waitKey(0)
+                cv2.destroyAllWindows()
                 print(f)
             except Exception as e:
                 print(e)
                 print(image_path, 'ignored')
 
-maskAndSave('./', 'result_train')
+# maskAndSave('./', 'aligned_nl_alpha03')
+maskAndSave('./', 'aligned_gradient_alpha025_train')

@@ -19,4 +19,4 @@ def concatAndSave(img1_dir, img2_dir, save_dir_name):
 # concatAndSave('../aligned/', '../aligned_masked/')
 # concatAndSave('../original/', '../only_mirrored/')
 # concatAndSave('/home/soohyeonlee/project/FaceDataset/ExtendedYaleB_modified/실험사용할것만모아놓음/original/', '/home/soohyeonlee/project/FaceDataset/ExtendedYaleB_modified/실험사용할것만모아놓음/yale_b_half_random/')
-concatAndSave('./aligned/test/', './alpha_02_nl/test/', 'concat_alpha_02_nl/test')
+concatAndSave('./original/', './original/', './yale_b_original_concat/')

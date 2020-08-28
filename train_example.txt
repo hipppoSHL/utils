@@ -30,3 +30,7 @@ python test.py --dataroot ./datasets/yaleb_nl_concat_test --name alpha02_lambda5
 
 python test.py --dataroot ./datasets/yale_b_original_concat --name alpha02_nl_kernel3_truthNLed --model pix2pix --direction BtoA --no_flip --input_nc 1 --output_nc 1 --results_dir ./results/alpha02n_l_kernel3_yalebtest --num_test 600
 
+python test.py --dataroot ./datasets/yale_b_original_concat --name nothing --model pix2pix --direction BtoA --no_flip --input_nc 1 --output_nc 1 --results_dir ./results/nothing_yaleb --num_test 600
+
+python test.py --dataroot ./datasets/concat_nothing --name nothing --model pix2pix --direction BtoA --no_flip --input_nc 1 --output_nc 1 --num_test 600
+

@@ -49,6 +49,13 @@ def halfAlphaMask2(img1_dir, img2_dir, a_rate):
             dest[i, 64 + j] = img1[i, 64 + j] * a_rate + 0 * (1-a_rate)
     return dest
 
+def halfAlphaMask3(img, a_rate):
+    dest = img
+    for i in range (128):
+        for j in range(64):
+            dest[i, 64 + j] = img[i, 64 + j] * a_rate + 0 * (1-a_rate)
+    return dest
+
 def halfAlphaMask_Gradient(img_dir, a_rate):
     img = cv2.imread(img_dir, cv2.IMREAD_GRAYSCALE)
     for i in range(128):
@@ -148,14 +155,21 @@ def maskAndSave(img_dir, save_dir_name):
                 # img = halfCopy(image_path)
                 # img = NLfilterCenter(img)
                 # img = halfAlphaMask(image_path, 0.2)
-                # img = halfAlphaMask2(image_path, '/home/soohyeonlee/lab-workspace/Utils/tmp/tmp.png', 0.2)
+                # img = halfAlphaMask2(image_path, '/home/soohyeonlee/lab-workspace/Utils/tmp/tmp.png', 0.1)
                 # img = halfAlphaMask_Gradient(image_path, 0.25)
-                img = halfAlphaMask_Gradient2(image_path, '/home/soohyeonlee/lab-workspace/Utils/tmp/tmp.png', 0.8)
+                img = halfAlphaMask_Gradient2(image_path, '/home/soohyeonlee/lab-workspace/Utils/tmp/tmp.png', 0.7)
                 # img = NLfilter(img)
                 # img = pushRightHalfCopy(image_path, 4)
                 # img = halfRandom(image_path)
                 # img = maskHalf_with_landmark.maskHalf_landmark(image_path)
                 # img = blurCenter(img.astype(int))
+
+                # img1 = halfCopy(image_path)
+                # img2 = justLoad(image_path)
+                # # blend image 1 & 2
+                # img = cv2.addWeighted(img1, 0.5, img2, 0.5, 0)
+                # img = halfAlphaMask3(img, 0.5)
+
                 cv2.imwrite('../' + save_dir_name + '/'+f[:-3]+'png', img)
             except Exception as e:
                 print(e)
@@ -179,4 +193,4 @@ def testAndShow(img_dir):
                 print(image_path, 'ignored')
 
 # maskAndSave('./', 'aligned_nl_alpha03')
-maskAndSave('./', 'aligned_alpha08_gradient_blended_test')
+maskAndSave('./', 'stretched_alpha03_blended_gradient_test')
